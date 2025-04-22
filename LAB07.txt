@@ -1,0 +1,58 @@
+LAB07
+
+
+
+clc;
+clear;
+close all;
+
+% Constants
+Ea = 480;           % Internal generated voltage (V)
+Xs = 1.25;          % Synchronous reactance (Ohms)
+Ia_vals = linspace(0, 100, 1000); % Armature current range
+
+% Define power factor angles (in degrees)
+pf_values = [0.2 0.4 0.6 0.8];
+pf_angles_lag = -acos(pf_values);    % Lagging (negative angle)
+pf_angles_lead = acos(pf_values);    % Leading (positive angle)
+
+% Colors for plotting
+colors = ['r', 'g', 'b', 'k'];
+
+% Plot for lagging power factors
+figure;
+hold on;
+for i = 1:length(pf_values)
+    theta = pf_angles_lag(i);
+    Vt = zeros(size(Ia_vals));
+    for j = 1:length(Ia_vals)
+        Ia = Ia_vals(j) * exp(1i * theta);
+        Vt_calc = Ea - 1i * Xs * Ia;
+        Vt(j) = abs(Vt_calc);
+    end
+    plot(Ia_vals, Vt, colors(i), 'DisplayName', sprintf('p.f. lagging = %.1f', pf_values(i)));
+end
+title('Terminal Voltage vs Armature Current (Lagging Power Factor)');
+xlabel('Armature Current (A)');
+ylabel('Terminal Voltage (V)');
+legend;
+grid on;
+
+% Plot for leading power factors
+figure;
+hold on;
+for i = 1:length(pf_values)
+    theta = pf_angles_lead(i);
+    Vt = zeros(size(Ia_vals));
+    for j = 1:length(Ia_vals)
+        Ia = Ia_vals(j) * exp(1i * theta);
+        Vt_calc = Ea - 1i * Xs * Ia;
+        Vt(j) = abs(Vt_calc);
+    end
+    plot(Ia_vals, Vt, colors(i), 'DisplayName', sprintf('p.f. leading = %.1f', pf_values(i)));
+end
+title('Terminal Voltage vs Armature Current (Leading Power Factor)');
+xlabel('Armature Current (A)');
+ylabel('Terminal Voltage (V)');
+legend;
+grid on;

@@ -1,0 +1,38 @@
+LAB06
+
+
+clc; clear; close all;
+
+%% Parameters
+I_mag = 1;           % Magnitude of phase currents
+f = 50;              % Frequency (Hz)
+P = 2;               % Number of poles
+w = 2*pi*f;          % Angular frequency
+T = 1/f;             % Time period
+t = linspace(0, 2*T, 1000);  % Time vector for 2 cycles
+
+%% Currents in A, B, C phases
+IA = I_mag * sin(w*t);                    % Phase A
+IB = I_mag * sin(w*t - 2*pi/3);           % Phase B
+IC = I_mag * sin(w*t + 2*pi/3);           % Phase C
+
+%% Stator Windings - Placed 120° apart in space
+thetaA = 0;                   % Phase A coil aligned at 0°
+thetaB = -2*pi/3;             % Phase B coil at -120°
+thetaC = +2*pi/3;             % Phase C coil at +120°
+
+% Resultant MMF (vector sum of all 3)
+Bx = IA*cos(thetaA) + IB*cos(thetaB) + IC*cos(thetaC);
+By = IA*sin(thetaA) + IB*sin(thetaB) + IC*sin(thetaC);
+
+%% Animation of rotating magnetic field
+figure;
+for i = 1:20:length(t)
+    quiver(0, 0, Bx(i), By(i), 'LineWidth', 2, 'MaxHeadSize', 1.5);
+    axis equal;
+    axis([-2 2 -2 2]);
+    grid on;
+    xlabel('B_x'); ylabel('B_y');
+    title('Rotating Magnetic Field (Resultant MMF Vector)');
+    pause(0.01);
+end

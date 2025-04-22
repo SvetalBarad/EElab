@@ -1,0 +1,47 @@
+LAB08
+
+
+
+
+
+clc; clear; close all;
+
+% Motor Parameters (from Chapman Example 7-5)
+V1 = 460 / sqrt(3);     % Phase voltage (Line-to-neutral)
+f = 60;                 % Frequency (Hz)
+P = 4;                  % Number of poles
+R1 = 0.641;             % Stator resistance
+X1 = 1.106;             % Stator reactance
+Xr = 0.464;             % Rotor reactance
+RR_base = 0.332;        % Chosen base rotor resistance
+
+% Synchronous speed in rad/sec
+ns_rpm = 120 * f / P;
+ws = 2 * pi * ns_rpm / 60;
+
+% Slip range
+s = linspace(0.001, 1, 1000);  % Avoid s = 0 to prevent divide by zero
+
+% Function to compute torque
+compute_torque = @(Rr) (3 * V1^2 .* (Rr ./ s)) ./ ...
+    (ws * ((R1 + (Rr ./ s)).^2 + (X1 + Xr)^2));
+
+% Compute torque for different Rr values
+T1 = compute_torque(RR_base);
+T2 = compute_torque(RR_base / 2);
+T3 = compute_torque(RR_base * 2);
+
+% Convert slip to speed (RPM)
+n = (1 - s) * ns_rpm;
+
+% Plotting
+figure;
+plot(n, T1, 'b-', 'LineWidth', 2); hold on;
+plot(n, T2, 'r--', 'LineWidth', 2);
+plot(n, T3, 'g-.', 'LineWidth', 2);
+grid on;
+xlabel('Speed (RPM)');
+ylabel('Torque (Nm)');
+title('Torque-Speed Characteristics of Induction Motor');
+legend('R_r', '0.5 R_r', '2 R_r');
+xlim([0 ns_rpm]);
