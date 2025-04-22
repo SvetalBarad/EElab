@@ -1,0 +1,23 @@
+Objective: Create and execute a Matlab Program that simulates:
+Rotating Magnetic Field 
+If a three-phase set of currents, each of equal magnitude and differing in phase by 120o, flows in a three-phase winding, then it will produce a rotating magnetic field of constant magnitude. 
+Observe the following:
+What will happen when the current in any two of the three coils is swapped? 
+What would be the effect of variation of the amplitude of currents in each phase?
+What would be the effect of variations in phase angles?
+What would be the effect of increasing / decreasing the value of electrical frequency?
+What would be the effect of incorporating more sets of three-phase winding, i.e., increasing the number of magnetic poles?
+Interaction of the magnetic field produced by a current carrying one-loop rotor with the rotating magnetic field of the three-phase stator windings. 
+Observe the following:
+Is the loop’s magnetic field trying to align with the rotating magnetic field?
+If yes then what is the mechanical speed of the loop’s magnetic field?
+What would be the effect of variations in the initial mechanical angle between the two fields? 
+
+
+The ‘Lab Record’ must includes the following:
+Description of the Model to be created and executed
+Schematic diagram
+Program Code
+Observations
+Results
+give me perfect matlab code for this
